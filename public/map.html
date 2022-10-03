@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://eecu.sitegist.com/mapplic/mapplic.css">
+        <link rel="stylesheet" href="https://eecu.sitegist.com/mapplic/magnific-popup.css">
+        <link rel="stylesheet" href="https://eecu.sitegist.com/mapplic/style.css">
+    </head>
+    <body>
+        <div id="map"></div>
+    </body>
+    <footer>
+
+    </footer>
+    <script src="https://eecu.sitegist.com/mapplic/jquery.min.js"></script>
+    <script src="https://eecu.sitegist.com/mapplic/jquery.mousewheel.js"></script>
+    <script src="https://eecu.sitegist.com/mapplic/magnific-popup.js"></script>
+    <script src="https://eecu.sitegist.com/mapplic/mapplic.js"></script>
+    <script>
+        let json = {
+            mapwidth: "800",
+            mapheight: "600",
+            minheight: "600",
+            maxheight: "800",
+            action: "tooltip",
+            fillcolor: "#343f4b",
+            maxscale: "4",
+            bgcolor: "#efe5da",
+            fullscreen: false,
+            hovertip: true,
+            hovertipdesc: false,
+            smartip: false,
+            deeplinking: true,
+            linknewtab: false,
+            minimap: false,
+            animations: false,
+            zoom: false,
+            zoombuttons: false,
+            clearbutton: true,
+            zoomoutclose: false,
+            closezoomout: false,
+            mousewheel: false,
+            mapfill: false,
+            sidebar: false,
+            search: false,
+            searchdescription: false,
+            alphabetic: false,
+            thumbholder: false,
+            hidenofilter: false,
+            highlight: false,
+            topLat: "49.4",
+            leftLng: "21.95",
+            bottomLat: "43.85",
+            rightLng: "40.200653",
+            levels: [
+                {
+                    id: "ukraine",
+                    title: "Ukraine",
+                    map: "https://eecu.sitegist.com/assets/mapplic/ukraine.svg",
+                    minimap: "",
+                    show: "true",
+                    locations: [
+                        {
+                            id: "uk-lviv",
+                            title: "Львів",
+                            action: "tooltip",
+                            pin: "pin-classic pin-label",
+                            lat: "49.8326679",
+                            lng: "23.9421963",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        },
+                        {
+                            id: "uk-luhansk",
+                            title: "Луганськ",
+                            action: "tooltip",
+                            pin: "pin-classic pin-label",
+                            lat: "48.5799791",
+                            lng: "39.2168859",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        },
+                        {
+                            id: "ua-vinnytsya",
+                            title: "Вінниця",
+                            pin: "pin-classic pin-label",
+                            label: "Вінниця",
+                            action: "default",
+                            lat: "49.2347287",
+                            lng: "28.4346146",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        },
+                        {
+                            id: "ua-odesa",
+                            title: "Одеса",
+                            pin: "pin-classic pin-label",
+                            label: "Одеса",
+                            action: "default",
+                            lat: "46.491413",
+                            lng: "30.7446028",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        },
+                        {
+                            id: "ua-sumy",
+                            title: "Суми",
+                            pin: "pin-classic pin-label",
+                            label: "Суми",
+                            action: "default",
+                            lat: "50.9006445",
+                            lng: "34.7441747",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        },
+                        {
+                            id: "ua-sevastopol",
+                            title: "Севастополь",
+                            pin: "pin-classic pin-label",
+                            label: "Севастополь",
+                            action: "default",
+                            lat: "44.6138731",
+                            lng: "33.3578438",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        },
+                        {
+                            id: "ua-chernihiv",
+                            title: "Чернігів",
+                            pin: "pin-classic pin-label",
+                            label: "Чернігів",
+                            action: "open-link",
+                            lat: "51.4957591",
+                            lng: "31.2204993",
+                            level: "ukraine",
+                            color: "#343f4b",
+                            link: "/chernihiv/"
+                        },
+                        {
+                            id: "ua-lutsk",
+                            title: "Луцьк",
+                            pin: "pin-classic pin-label",
+                            label: "Луцьк",
+                            action: "default",
+                            lat: "50.73977",
+                            lng: "25.2639655",
+                            level: "ukraine",
+                            color: "#343f4b"
+                        }
+                    ]
+                }
+            ],
+            styles: [],
+            categories: []
+        };
+
+        $(document).ready(function() {
+            let map = $('#map').mapplic({
+                //source: 'https://eecu.sitegist.com/mapplic/ukraine.json',
+                source: json,
+                //height: 600,
+                //width: 800,
+                lightbox: true,
+                maxscale: 1
+            });
+        });
+    </script>
+</html>

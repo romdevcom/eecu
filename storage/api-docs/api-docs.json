@@ -1,0 +1,1732 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "EECU",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Аутинтифікація"
+                ],
+                "summary": "Login",
+                "description": "Enter with email and password",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Enter data for login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unauthorised",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "delete": {
+                "tags": [
+                    "Аутинтифікація"
+                ],
+                "summary": "Logout",
+                "description": "User logout",
+                "operationId": "authLogout",
+                "responses": {
+                    "200": {
+                        "description": "User should be authorized to get information<br><br> Headers have to contain:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/communities": {
+            "get": {
+                "tags": [
+                    "Громади"
+                ],
+                "summary": "Отримати список громад",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "CommunitiesGet",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з громадами та хедер таблиць",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Учасники проекту"
+                                        },
+                                        "headers": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Назва"
+                                                    },
+                                                    "value": {
+                                                        "type": "string",
+                                                        "example": "name"
+                                                    },
+                                                    "sortable": {
+                                                        "type": "boolean",
+                                                        "example": "true"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "row": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "hromada"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Громада"
+                                                    },
+                                                    "chief": {
+                                                        "type": "string",
+                                                        "example": "Керівник громади"
+                                                    },
+                                                    "contact_person": {
+                                                        "type": "string",
+                                                        "example": "Контактна персона"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "+38 (096) 000 00 00"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "email@gmail.com"
+                                                    },
+                                                    "lat": {
+                                                        "type": "string",
+                                                        "example": "42.2323"
+                                                    },
+                                                    "lng": {
+                                                        "type": "string",
+                                                        "example": "22.2313"
+                                                    },
+                                                    "picture": {
+                                                        "type": "string",
+                                                        "example": "22"
+                                                    },
+                                                    "eea_member": {
+                                                        "type": "integer",
+                                                        "example": "0"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/communities/{community_id}": {
+            "get": {
+                "tags": [
+                    "Громади"
+                ],
+                "summary": "Отримати список громад",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "CommunitiesGetID",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з секторами",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "rows": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "hromada"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Громада"
+                                                    },
+                                                    "chief": {
+                                                        "type": "string",
+                                                        "example": "Керівник громади"
+                                                    },
+                                                    "contact_person": {
+                                                        "type": "string",
+                                                        "example": "Контактна персона"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "+38 (096) 000 00 00"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "email@gmail.com"
+                                                    },
+                                                    "lat": {
+                                                        "type": "string",
+                                                        "example": "42.2323"
+                                                    },
+                                                    "lng": {
+                                                        "type": "string",
+                                                        "example": "22.2313"
+                                                    },
+                                                    "picture": {
+                                                        "type": "string",
+                                                        "example": "22"
+                                                    },
+                                                    "eea_member": {
+                                                        "type": "integer",
+                                                        "example": "0"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Якщо користувач не увійшов на сайт",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Якщо користувач не є супер адміністратором і не приходить community_id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "method is not allowed without community_id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Якщо по community_id не знайдено громади",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "community not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/communities/{community_id}": {
+            "get": {
+                "tags": [
+                    "Громади"
+                ],
+                "summary": "Отримати дані громади у вигляді form",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "CommunityGetID",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено id та масив form",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "form": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "chief": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "1"
+                                                                },
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "hromada"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Якщо користувач не увійшов на сайт",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Якщо користувач не є супер адміністратором і не підходить community_id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "method is not allowed without community_id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Якщо по community_id не знайдено громади",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "community not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Громади"
+                ],
+                "summary": "Оновити дані громади",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "CommunityUpdateByID",
+                "parameters": [
+                    {
+                        "parameter": "community_id",
+                        "name": "community_id",
+                        "in": "query",
+                        "description": "id громади",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "community_id": {
+                                            "type": "string",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "parameter": "form",
+                        "name": "form",
+                        "in": "query",
+                        "description": "form",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "chief": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "label": {
+                                                        "type": "string",
+                                                        "example": "1"
+                                                    },
+                                                    "value": {
+                                                        "type": "string",
+                                                        "example": "hromada"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено id та масив form",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "form": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "chief": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "1"
+                                                                },
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "hromada"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Якщо користувач не увійшов на сайт",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Якщо користувач не є супер адміністратором і не підходить community_id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "method is not allowed without community_id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Якщо по community_id не знайдено громади",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "community not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/communities/year/{year}": {
+            "get": {
+                "tags": [
+                    "Громади"
+                ],
+                "summary": "Отримати список громад по року",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "CommunitiesGetAllByYear",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з громадами та хедер таблиць",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Учасники проекту"
+                                        },
+                                        "headers": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Назва"
+                                                    },
+                                                    "value": {
+                                                        "type": "string",
+                                                        "example": "name"
+                                                    },
+                                                    "sortable": {
+                                                        "type": "boolean",
+                                                        "example": "true"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "row": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "slug": {
+                                                        "type": "string",
+                                                        "example": "hromada"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Громада"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "approved"
+                                                    },
+                                                    "year": {
+                                                        "type": "string",
+                                                        "example": "2021"
+                                                    },
+                                                    "percent": {
+                                                        "type": "string",
+                                                        "example": "99"
+                                                    },
+                                                    "manager": {
+                                                        "type": "string",
+                                                        "example": "Support"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Якщо користувач не увійшов на сайт",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Якщо користувач не є супер адміністратором і не приходить community_id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "method is not allowed without community_id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Якщо по community_id не знайдено громади",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "community not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/content": {
+            "get": {
+                "tags": [
+                    "Контент"
+                ],
+                "summary": "Content",
+                "description": "Get information about user",
+                "operationId": "content",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Name"
+                                        },
+                                        "role": {
+                                            "type": "integer",
+                                            "example": "1"
+                                        },
+                                        "nav": {
+                                            "type": "array",
+                                            "items": {}
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User should be authorized to get information<br><br> Headers have to contain:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/data/indicators": {
+            "get": {
+                "tags": [
+                    "Індикатори"
+                ],
+                "summary": "Отримати масив індикаторів",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "IndicatorsGetPage",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з джерелами"
+                    },
+                    "401": {
+                        "description": "Відповідь, якщо користувач неавторизований",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Помилка, якщо користувач не має прав отримати ці дані",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Даних не знайдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "data not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/manager/community": {
+            "get": {
+                "tags": [
+                    "Менеджер"
+                ],
+                "summary": "Отримати дані профіля",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "get_manager_community",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено форма для користувача"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/manager/rating": {
+            "get": {
+                "tags": [
+                    "Менеджер"
+                ],
+                "summary": "Отримати рейтинг громади",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "get_manager_rating",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено форма для користувача"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/manager/rating/{year}": {
+            "get": {
+                "tags": [
+                    "Менеджер"
+                ],
+                "summary": "Отримати рейтинг громади по року",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "get_manager_rating_year",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено форма для користувача"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/manager/rating/{year}/metric": {
+            "get": {
+                "tags": [
+                    "Менеджер"
+                ],
+                "summary": "Отримати дані та форму для громади відносно року та групи (з гет параметром measure)",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "get_manager_rating_year_metric",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено ід громади, рік та масив status"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/manager/community/status": {
+            "post": {
+                "tags": [
+                    "Менеджер"
+                ],
+                "summary": "Подати дані року на верифікацію",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "edit_manager_community_status",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено ід громади, рік та масив status"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/numbers": {
+            "get": {
+                "tags": [
+                    "Показники (numbers)"
+                ],
+                "summary": "Отримати список показники",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "NumbersGet",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з показники",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "list": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Показник"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "22"
+                                                    },
+                                                    "dimension": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "precision": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "source_id": {
+                                                        "type": "integer",
+                                                        "example": "22"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/groups": {
+            "get": {
+                "tags": [
+                    "Групи (groups)"
+                ],
+                "summary": "Отримати список груп",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "GroupsGet",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з групами",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "list": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Група"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "22"
+                                                    },
+                                                    "icon": {
+                                                        "type": "string",
+                                                        "example": "icon"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/sectors": {
+            "get": {
+                "tags": [
+                    "Сектори (sectors)"
+                ],
+                "summary": "Отримати список секторів",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "SectorsGet",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено масив з секторами",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "list": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Сектор"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "22"
+                                                    },
+                                                    "group_id": {
+                                                        "type": "integer",
+                                                        "example": "22"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/communities/users/{user_id}": {
+            "get": {
+                "tags": [
+                    "Користувачі"
+                ],
+                "summary": "Отримати дані користувача вигляді form",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "UserGetID",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено id та масив form",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "form": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "Ім'я"
+                                                                },
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "Тест"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "phone": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "Телефон"
+                                                                },
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "0960000000"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "email": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "Email"
+                                                                },
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "test@email.com"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "role_id": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "label": {
+                                                                    "type": "string",
+                                                                    "example": "Роль"
+                                                                },
+                                                                "value": {
+                                                                    "type": "string",
+                                                                    "example": "1"
+                                                                },
+                                                                "options": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "label": {
+                                                                                "type": "string",
+                                                                                "example": "Admin"
+                                                                            },
+                                                                            "value": {
+                                                                                "type": "string",
+                                                                                "example": "1"
+                                                                            }
+                                                                        },
+                                                                        "type": "object"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "1"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Якщо користувач не увійшов на сайт",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Якщо користувачу заборонена ця дія",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "method is not allowed without community_id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Якщо користувача не знайдено",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "community not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Користувачі"
+                ],
+                "summary": "Оновити дані користувача",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "UserUpdateByID",
+                "parameters": [
+                    {
+                        "parameter": "user_id",
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "id користувача",
+                        "required": true,
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user_id": {
+                                            "type": "string",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено id та масив form",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "string",
+                                            "example": "масив з даними, які приходили"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "success": {
+                                            "type": "string",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Якщо користувач не увійшов на сайт",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "unauthorised"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Якщо користувачу заборонено використовувати цей метод",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Якщо не знайдено користувача",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Користувачі"
+                ],
+                "summary": "Отримати дані профіля",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "get_current_user",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено форма для користувача"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Користувачі"
+                ],
+                "summary": "оновити дані профіля",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "edit_current_user",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено форма для користувача"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/password": {
+            "post": {
+                "tags": [
+                    "Користувачі"
+                ],
+                "summary": "оновити пароль профіля",
+                "description": "Користувач повинен бути авторизований<br><br> Щоб використати токен Headers запиту має містити:\r\n\t *    <br><br> <em>Accept=application/json<br>Authorization=Bearer token_here</em>",
+                "operationId": "edit_current_password",
+                "responses": {
+                    "200": {
+                        "description": "Буде повернено форма для користувача"
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not authorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

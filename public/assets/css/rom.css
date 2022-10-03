@@ -1,0 +1,158 @@
+#obj2-container{
+    height: 200px;
+    display: block;
+    position: relative;
+}
+#obj2{
+    /*height: 400px!important;*/
+}
+.swal2-icon{
+    display: none!important;
+}
+.swal2-popup{
+    padding: 40px;
+}
+.error-page .pg-decor{
+    display: none;
+}
+.dt-list__low .dt__cell{
+    text-transform: none;
+}
+.acrd__content .dt-sub{
+    grid-template-columns: auto repeat(var(--dtCols),140px);
+}
+.acrd__content .dt-sub .dt-sub__cell:last-child{
+    text-align: center;
+}
+.dt-list__low .dt__cell a:hover,
+.searchBlock-form__results li a:hover{
+    color: #004899;
+}
+.pin-circular{
+    background: #004899!important;
+    border-color: #004899!important;
+    transform: scale(5);
+}
+.searchBlock-form{
+    position: relative;
+}
+.searchBlock-form__results{
+    position: absolute;
+    list-style: none;
+    background: #fff;
+    left: 0;
+    right: 0;
+    padding: 20px 18px 15px;
+    top: 100%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: solid 1px #eee;
+    opacity: 0;
+    transition: all .3s;
+}
+.searchBlock-form.active .searchBlock-form__results{
+    opacity: 1;
+}
+.searchBlock-form.active .searchBlock-form__inst{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.searchBlock-form__results li{
+    margin-bottom: 5px;
+}
+.searchBlock-form__results li:last-child{
+    margin-bottom: 0;
+}
+.searchBlock-form__results li a{
+    font-size: 1.1rem;
+    line-height: 1.4;
+}
+.cards .card{
+    height: 100%;
+}
+.dt-empty a:hover{
+    color: #000;
+}
+.dt-sub__cell:nth-child(-n+2){
+    text-align: center;
+}
+.dt-sub__cell:first-child{
+    text-align: left!important;
+}
+
+.mapplic-hovertip .mapplic-tooltip-title{
+    color: #331B3B;
+    text-transform: uppercase;
+}
+.mapplic-tooltip-description p{
+    display: inline-flex;
+    width: auto;
+    flex-direction: column;
+    margin: 0;
+    font-size: 14px;
+}
+.mapplic-tooltip-description p span.full{
+    width: 100%;
+    margin-bottom: 2px;
+}
+.mapplic-tooltip-description p span.blue{
+    color: #004899;
+    font-weight: 600;
+}
+.mapplic-tooltip-description p span.bold{
+    font-size: 15px;
+    font-weight: bold;
+}
+.mapplic-tooltip-wrap{
+    padding: 15px 15px!important;
+    border-radius: 15px;
+    position: relative;
+}
+.mapplic-tooltip-wrap .marker-eecu-logo{
+    content: '';
+    height: 35px;
+    width: 85px;
+    background-image: url(../img/european_energy_award_logo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    /*position: absolute;*/
+    margin: 10px 0 0;
+    align-self: flex-end;
+}
+
+textarea.eecuForm__ctrl{
+    padding: 10px 15px;
+}
+.shadowBlock .ttl3{
+    text-align: center;
+}
+.shadowBlock .description{
+    margin-bottom: 25px;
+}
+
+.acrd-status--simple:before{
+    content: '+';
+}
+.acrd .acrd__option--opened > .acrd__opener .acrd-status--simple:before{
+    content: '-';
+}
+
+@media screen and (max-width:1199.98px){
+    .acrd__content .dt-sub {
+        grid-template-columns: auto repeat(var(--dtCols),100px);
+    }
+}
+@media screen and (max-width:415px){
+    .mapplic-container{
+        height: 280px!important;
+        margin-bottom: 40px;
+    }
+    .mapplic-map{
+        /*transform: translate(0, 5px) scale(0.117)!important;*/
+    }
+    .cms-editor p,
+    .content-block p{
+        text-align: left;
+    }
+}
